@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="buItem">
+<select id="itemList" resultType="ItemDTO">
+	select * from item order by item_no
+</select>
+
+<select id="itemOne" resultType="ItemDTO" parameterType="int">
+	select * from item where item_no=#{item_no}
+</select>
+
+<insert id="insert" parameterType="ItemDTO">
+ insert into item
+</insert>
+
+<update id="update" parameterType="ItemDTO">
+
+</update>
+
+<delete id="delete" parameterType="int">
+
+</delete>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="p">
+
+<!-- 결제 상품정보   -->
+	<select id="payitem" parameterType="Integer" resultType="item"> 
+		SELECT I.*, P.PAYMENT
+		FROM ITEM I
+		LEFT JOIN PAY P ON I.ITEM_NO = P.ITEM_NO
+		WHERE I.ITEM_NO =#{item_no}
+	</select>
+	
+	
+	<!-- 결제 수단 업데이트 -->
+	<update id="paying_info_update" parameterType="java.util.HashMap">
+		UPDATE MEMBER SET PAYMENT=#{payment}
+	</update>
+					 
+	<!-- 결제하기 -->  
+	<update id="BuyingCheck" parameterType="item">    
+	    UPDATE ITEM
+	    SET ITEM_STOCK = ITEM_STOCK -1
+	    WHERE ITEM_NO =#{item_no}
+	</update>
+
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
