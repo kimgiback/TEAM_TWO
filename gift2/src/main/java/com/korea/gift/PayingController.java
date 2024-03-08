@@ -1,7 +1,6 @@
 package com.korea.gift;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,10 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import dao.ItemDAO;
 import dao.MemberDAO;
 import dao.PayingDAO;
-import dto.ItemDTO;
+import dao.WishCartDAO;
+import dto.CartDTO;
+import dto.CartItemDTO;
+import dto.MemberDTO;
 import dto.PayingDTO;
 import lombok.RequiredArgsConstructor;
 import util.Common;
@@ -39,22 +37,44 @@ public class PayingController {
 	final PayingDAO pay_dao;
 	final MemberDAO member_dao;
 	final ItemDAO item_dao;
+	final WishCartDAO wishCart_dao;
 
 	@RequestMapping("payitem")
+	
 	public String payitem(@RequestParam("item_no") int item_no, Model model) {
-		ItemDTO itemDTO = pay_dao.payitem(item_no);
-		model.addAttribute("itemDTO", itemDTO);
 
-		List<PayingDTO> Payinglist = pay_dao.pay_info(item_no);
-		model.addAttribute("Payinglist", Payinglist);
-
+		
+		CartDTO cartDTO = new CartDTO();
+		
+		cartDTO.setCart_quantity(1);
+		cartDTO.setItem_no(item_no);
+		cartDTO.setM_idx(41);
+		
+	
+		int cartItem = wishCart_dao.cartItem(cartDTO);
+		System.out.println("cartItem="+cartItem);
+		
+	
+		CartItemDTO ItemOne = wishCart_dao.cartOne(cartDTO);
+		/*
+		 * MemberDTO memberDTO = pay_dao.payitem(map);
+		 *  List<ItemDTO> Payinglist =
+		 * pay_dao.pay_info(map); map.put("memberDTO", memberDTO);
+		 *  map.put("Payinglist",
+		 * Payinglist);
+		 */
+		System.out.println("ItemOne="+ItemOne);
+		
+		model.addAttribute("cartItem",cartItem);
+		model.addAttribute("ItemOne",ItemOne);
 		return Common.Paying.VIEW_PATH + "paying.jsp";
 
 	}
 
 	@RequestMapping("card")
 	@ResponseBody
-	public String card(PayingDTO dto, int item_no) {
+	public String card(Model model, MemberDTO dto, @RequestParam("item_no") int item_no ){
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("item_no", item_no);
 		map.put("payment", dto.getPayment());
@@ -71,12 +91,6 @@ public class PayingController {
 		return result;
 	}
 
-	@RequestMapping("buy_info")
-	public String buy_info(Model model) {
-		List<PayingDTO> Buyinglist = pay_dao.buy_info();
-		model.addAttribute("Buyinglist", Buyinglist);
-		return Common.Paying.VIEW_PATH + "buy_info.jsp";
-	}
 
 	@RequestMapping("BuyingCheck")
 	@ResponseBody

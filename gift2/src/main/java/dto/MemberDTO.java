@@ -18,5 +18,7 @@ public class MemberDTO {
 	private String bu_email, m_email;
 
 	private String bu_phone, m_phone;
+	
+	private String payment;
 
 }

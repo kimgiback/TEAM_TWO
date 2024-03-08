@@ -27,7 +27,6 @@ a {text-decoration: none; color: #222;}
 	padding: 10px;
 }
 
-
 /* -------- 메인 페이지 -------- */
 
 #main-banner {
@@ -134,6 +133,9 @@ a {text-decoration: none; color: #222;}
 	z-index: 1;
 }
 
+.tabWrap .tab span.on {
+	font-weight: bold;
+}
 
 .tabWrap .tab span:last-child {
 	padding-right: 0;

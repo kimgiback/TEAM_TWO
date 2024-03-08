@@ -16,9 +16,13 @@
    		 <typeAlias type="dto.QnaDTO" alias="QnaDTO" />
     	<typeAlias type="dto.ReplyDTO" alias="ReplyDTO" />
     	 <typeAlias type="dto.ItemDTO" alias="item" />
-   		 <typeAlias type="dto.CategoryDTO" alias="category" />
+   		 <typeAlias type="dto.CategoryDTO" alias="CategoryDTO" />
 		<typeAlias type="dto.MemberDTO" alias="member"/> 
 		<typeAlias type="dto.UserQnaDTO" alias="UserQnaDTO" />
+		<typeAlias type="dto.CartDTO" alias="CartDTO" />
+    <typeAlias type="dto.WishDTO" alias="WishDTO" />
+    <typeAlias type="dto.CartItemDTO" alias="CartItemDTO" />
+    <typeAlias type="dto.WishItemDTO" alias="WishItemDTO" />
 	</typeAliases>
 	
 <mappers>
@@ -30,5 +34,6 @@
     <mapper resource="config/mybatis/mapper/item.xml" />
     <mapper resource="config/mybatis/mapper/member.xml" />
     <mapper resource="config/mybatis/mapper/userQna.xml" />
+    <mapper resource="config/mybatis/mapper/wishCart.xml" />
 </mappers>
 </configuration>

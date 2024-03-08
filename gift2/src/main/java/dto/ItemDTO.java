@@ -1,7 +1,5 @@
 package dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Data;
 
 @Data
@@ -9,12 +7,10 @@ public class ItemDTO {
 
 	private int item_no;
 	
-	//ÂüÁ¶ È¸¿ø
-	private int m_idx;
-	//ÂüÁ¶ cate
+	//ï¿½ï¿½ï¿½ï¿½ cate
 	private int category_no;
 	
-	//ÂüÁ¶ business
+	//ï¿½ï¿½ï¿½ï¿½ business
 	private int bu_no;
 	
 	private String item_name;
@@ -27,9 +23,10 @@ public class ItemDTO {
 	
 	private String brand;
 	
-	private String payment;
+	private int readhit;
 	
 	//image file
+//	private MultipartFile item_image;
 	private String item_image;
 	
 }

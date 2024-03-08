@@ -13,6 +13,8 @@
 <script src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
 <script type="text/javascript">
 
+console.log(ItemOne);
+
 function card(paymentType) {
     var payment = paymentType;
     var item_no = document.querySelector('input[name="item_no"]').value;
@@ -29,6 +31,9 @@ function card(paymentType) {
 
 function CardCheck() {
     if (xhr.readyState == 4 && xhr.status == 200) {
+    	
+    	var item_no = document.querySelector('input[name="item_no"]').value;
+    	
         let data = xhr.responseText;
         let json = eval(data); // JSON 형식의 응답 데이터를 JavaScript 배열로 변환
            
@@ -40,7 +45,7 @@ function CardCheck() {
             var paymentValue =  document.querySelector('input[name="payment"]').value; // 서버에서 반환된 결제수단 값
             document.querySelector('.active').innerText = paymentValue;
             console.log(paymentValue);
-            location.href="payitem&item_no=${itemDTO.item_no}";
+            location.href = "payitem?item_no=" + item_no;
             
           
         } else if (json[0].result == "fail") {
@@ -87,16 +92,12 @@ document.addEventListener("DOMContentLoaded", function() {
 function buying() {
 	
 	let item_no = document.querySelector('input[name="item_no"]').value;
-	let item_stock = document.querySelector('input[name="item_stock"]').value;
 	let m_idx = document.querySelector('input[name="m_idx"]').value;
-	let category_no = document.querySelector('input[name="category_no"]').value;
 	let payment = document.querySelector('input[name="payment"]').value;
 	
 	let url = "BuyingCheck";
 	let param ="item_no="+item_no+
-				"&item_stock="+item_stock+
 				"&m_idx="+m_idx+
-				"&category_no="+category_no+
 				"&payment="+payment;
 	
 	sendRequest(url, param, BuyingCheck, "post");
@@ -106,13 +107,15 @@ function buying() {
 
 function BuyingCheck() {
    
+	var item_no = document.querySelector('input[name="item_no"]').value;
+	
             if (xhr.readyState == 4 && xhr.status == 200) {
                 	var data = xhr.responseText;
                 	var json = (new Function('return' + data))();
                 	
             if (!confirm("정말 결제하시겠습니까? 진짜로??")) {
                 	  alert("결제를 취소하셨습니다. 홈 화면으로 돌아갑니다."); 
-                	  return "payitem";
+                	  location.href = "payitem?item_no=" + item_no;
                 	    } 
             
             else if (json[0].result == "yes") {
@@ -120,7 +123,7 @@ function BuyingCheck() {
                    	location.href="payitem";
                	 } 	else if(json[0].result="no") {
                    	 alert("결제에 실패하셨습니다. 결제화면으로 돌아갑니다.");
-                   	location.href="payitem";
+                   	location.href = "payitem?item_no=" + item_no;
                 	}
           
             	}
@@ -141,39 +144,28 @@ function BuyingCheck() {
 <hr>
 <form action="payitem" method="post" name="f">
 <div>
-	    <c:forEach var="dto" items="${Payinglist}">
 	        <div class="container">
-		            <c:choose>
-		                <c:when test="${dto.item_no eq itemDTO.item_no }">
-		                    <img src="${pageContext.request.contextPath}/resources/images/item/${itemDTO.item_image}.jpg" width="200" height="200" class="image">
-		                </c:when>
-		                <c:otherwise>
-		                    <!-- 이곳에 다른 처리를 위한 코드를 작성 -->
-		                </c:otherwise>
-		            </c:choose>
-		         <div class="text-container">
-		                <input type="hidden" name="payment" value="${dto.payment}">
-		                <input type="hidden" name="item_no" value="${dto.item_no}">
-		                <input type="hidden" name="item_stock" value="${dto.item_stock}">
-		                <input type="hidden" name="category_no" value="${dto.category_no}">
-		                <input type="hidden" name="m_idx" value="${dto.m_idx}">
-		                <span class="brand">${dto.brand}</span>
-		                <span class="item_name">${dto.item_name}</span>
-		                <span class="quantity">총 1개</span>
-		                <span class="item_price">${dto.item_price}</span>
-		         </div>
-	        </div>
-	    </c:forEach>
+		          <img src="${pageContext.request.contextPath}/resources/images/item/${ItemOne.item_image}.jpg" width="200" height="200" class="image">
+		
+		    	<div class="text-container">
+		               <%-- <input type="hidden" name="payment" value="${ItemList.payment}"> --%>
+		               <input type="hidden" name="item_no" value="${ItemOne.item_no}">
+		               <input type="hidden" name="m_idx" value="${ItemOne.m_idx}">
+		               <span class="brand">${ItemOne.brand}</span>
+		               <span class="item_name">${ItemOne.item_name}</span>
+		               <span class="quantity">총 1개</span>
+		               <span class="item_price">${ItemOne.item_price}</span>
+		     	</div>
+	        </div>  
 </div>
 </form>		
 	<table border="1">
-		<c:forEach var="dto" items="${Payinglist}">
 			<tr>
 				<td>결제 금액</td>
 			</tr>
 			<tr>
 				<td colspan="2">상품 금액</td>
-				<td>${dto.item_price }</td>
+				<td>${ItemOne.item_price }</td>
 			</tr>
 			<tr>
 				<td colspan="2">할인 금액</td>
@@ -185,16 +177,16 @@ function BuyingCheck() {
 			</tr>
 			<tr>
 				<td colspan="2">결제 수단</td>
-				<td>${dto.payment }</td>
+				<td><%-- ${DTO.payment } --%></td>
 			</tr>
 			<tr>
 				<td colspan="2">결제 금액</td>
-				<td>${dto.item_price }</td>
+				<td>${ItemOne.item_price }</td>
 			</tr>
 			 <tr>
 			 	<td><input type="button" value="결제하기" onclick="buying()"></td>
 			 </tr>	
-		 </c:forEach>
+
 	</table>		
 			
 		<h2 style="margin-top: -94px;">결제수단</h2>

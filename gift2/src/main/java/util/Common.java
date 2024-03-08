@@ -2,9 +2,12 @@ package util;
 
 public class Common {
 
-	// 硫붿씤...
+	// 메인...
 	public static class Main {
 		public static final String VIEW_PATH = "/WEB-INF/views/main/";
+		public final static int BLOCKLIST = 3;
+		public final static int BLOCKPAGE = 3;
+
 	}
 	
 	// 아이템 폴더...

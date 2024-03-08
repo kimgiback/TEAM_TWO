@@ -168,6 +168,7 @@ table {
   display: grid;
   border-radius: 4px;
   border: 1px solid #b6b6b6;
+  cursor: pointer;
 }
 
 .btnSet .btnCart em {
@@ -188,6 +189,7 @@ table {
   display: grid;
   border-radius: 4px;
   border: 1px solid #ec2028;
+  cursor: pointer;
 }
 
 .btnSet .btnLike em {
@@ -200,6 +202,10 @@ table {
   background-repeat: no-repeat;
   vertical-align: middle;
   background-image: url("../../images/icn_like_default.png");
+}
+
+.btnSet .btnLike.likePush em  {
+  background-image : url("../../images/icn_like_pressed.png");
 }
 
 .btnSet .btnBuy {
@@ -232,125 +238,4 @@ table {
 .detailInfo .detailTxt {
   word-wrap: break-word;
   padding: 10px 0 15px 0;
-}
-
-/* -------- 찜 페이지 -------- */
-
-#wishcartArea {
-  position: relative;
-}
-
-#wishcartArea h3.titline{
-    font-size: 16px;
-    height: 34px;
-    padding: 0 0 13px 9px;
-    /* margin-bottom: 10px; */
-    clear: both;
-}
-
-table.tableStyle03 {
-  width: 100%;
-  margin-bottom: 20px;
-  border-bottom: 1px #666 solid;
-}
-
-table.tableStyle03 th {
-  padding: 13px;
-  font-size: 12px;
-  color: #252525;
-  border-bottom: 1px solid #ddd;
-  background: #f7f7f7;
-  font-weight: bold;
-  text-align: center;
-}
-
-table.tableStyle03 td {
-  padding: 13px 14px;
-  color: #666;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
-}
-
-table.tableStyle03 td.tleft {
-  text-align: left;
-}
-
-colgroup {
-  display: table-column-group;
-}
-
-/* 이미지 */
-.pimgArea {
-  float: left;
-  margin-right: 40px;
-  width: 98px;
-  height: 98px;
-  background-color: #eee;
-}
-
-/* 상품명 */
-.basketBox .tit {
-  font-size: 14px;
-  color: #333;
-  font-weight: bold;
-  padding: 32px 0 11px 0;
-  width: 510px;
-}
-.basketBox .company {
-  padding-bottom: 30px;
-}
-
-/* 하단바 */
-.cartTotal {
-  display: flex;
-  background: #f7f7f7;
-  height: 80px;
-  line-height: 50px;
-  padding: 15px 30px;
-  margin: 50px 0 100px 0;
-}
-
-.cartTotal li {
-  float: left;
-}
-
-/* 결제금액 */
-.cartTotal .totalPrice {
-  font-size: 14px;
-  font-weight: bold;
-  border: 1px solid black;
-}
-
-.cartTotal .totalPrice ul li.price {
-  padding-left: 85px;
-}
-
-/* 버튼 */
-.cartTotal .btnArea {
-  margin-left: auto;
-}
-
-.cartTotal .btnArea .descTxt {
-  line-height: 51px;
-  padding-right: 20px;
-}
-
-a.btn_type09 {
-  border: 1px solid black;
-  display: inline-block;
-  text-align: center;
-  margin-right: 10px;
-  min-width: 73px;
-}
-
-a.btn_type11 {
-  border: 1px solid black;
-  display: inline-block;
-  text-align: center;
-  min-width: 73px;
-}
-
-/* 페이징 */
-#paging {
-  text-align: center;
 }

@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
-encoding//src/main/java/com/korea/gift/ItemController.java=UTF-8
 encoding//src/main/java/com/korea/gift/MemberController.java=UTF-8
+encoding//src/main/java/com/korea/gift/WishCartController.java=UTF-8
+encoding//src/main/java/dao/ItemDAO.java=UTF-8
+encoding//src/main/java/dao/WishCartDAO.java=UTF-8
+encoding//src/main/java/dto/ItemDTO.java=UTF-8

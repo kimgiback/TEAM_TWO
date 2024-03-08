@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.ItemDTO;
+import dto.MemberDTO;
 import dto.PayingDTO;
 import lombok.RequiredArgsConstructor;
 
@@ -39,13 +40,14 @@ final SqlSession sqlSession;
 		return res;
 	}
 	
-	public ItemDTO payitem(int item_no) {
-		ItemDTO itemDTO = sqlSession.selectOne("p.payitem", item_no);
-		return itemDTO;
+	public MemberDTO payitem(Map<String, Object> map) {
+		MemberDTO memberDTO = sqlSession.selectOne("p.payitem", map);
+		System.out.println("memberDTO="+memberDTO);
+		return memberDTO;
 	}
 	
-	public List<PayingDTO> pay_info(int item_no) {
-		List<PayingDTO> Payinglist = sqlSession.selectList("p.payitem", item_no);
+	public List<ItemDTO> pay_info(Map<String, Object> map) {
+		List<ItemDTO> Payinglist = sqlSession.selectList("p.payitem", map);
 		System.out.println("Payinglist3="+Payinglist);
 		return Payinglist;
 	}

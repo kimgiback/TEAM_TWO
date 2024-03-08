@@ -9,13 +9,79 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/item/item.css">
+<script src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
+
 <script type="text/javascript">
+function cart(item_no) {
+	let url = "${pageContext.request.contextPath}/cart_ajax";
+	let param = "item_no=" + item_no;
+		
+	sendRequest(url, param, cartRs, "GET");
+}
+
+function cartRs() {
+	if (xhr.readyState == 4 && xhr.status == 200) {
+		
+		let data = xhr.responseText;
+		let json = (new Function('return' + data))();
+		
+		if (json.result == 'add_success' || json.result == 'update_success') {
+			if (confirm('추가 성공~ 장바구니로 이동?')) {
+				location.href='${pageContext.request.contextPath}/cartList';
+			}
+			return;
+		}
+		
+		alert('추가 실패');
+	}
+}
+
+function wish(item_no) {
+	
+	let url = "${pageContext.request.contextPath}/wish_ajax";
+	let param = "item_no=" + item_no;
+	
+	let likePush = document.getElementById('userLike');
+		
+	if (!likePush.classList.contains('likePush')){
+		likePush.classList.add('likePush');
+		likePush.childNodes[0].style.backgroundImage="url('${pageContext.request.contextPath}/resources/images/icn_like_pressed.png')";
+		
+		sendRequest(url, param, wishRs, "GET");
+		return;
+		
+	} else if (likePush.classList.contains('likePush')) {
+		likePush.classList.remove('likePush');
+		likePush.childNodes[0].style.backgroundImage="url('${pageContext.request.contextPath}/resources/images/icn_like_default.png')";
+	}
+
+	sendRequest(url, param, wishRs, "GET");
+}
+
+function wishRs() {
+	if (xhr.readyState == 4 && xhr.status == 200) {
+
+		let data = xhr.responseText;
+		let json = (new Function('return' + data))();
+		
+		if (json.result == 'del_success') {
+			alert('찜 삭제 성공');
+		}
+		
+		if (json.result == 'add_success') {
+			alert('찜 추가 성공');
+		}
+	}
+}
+
+
 function payitem(f) {
 	
 	f.submit();
 }
 </script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/item.css">
+
 </head>
 <body>
 <form action="payitem" method="get" name="f">
@@ -24,6 +90,9 @@ function payitem(f) {
     <!-- 헤더영역 -->
     <header>
     	header
+	    <input type="button" value="로고" onclick="location.href='${pageContext.request.contextPath}'">
+	   	<input type="button" value="장바구니" onclick="location.href='${pageContext.request.contextPath}/cartList'">
+	    <input type="button" value="찜" onclick="location.href='${pageContext.request.contextPath}/wishList'">
     </header>
     
     <section id="sub-product" class="section">
@@ -65,24 +134,36 @@ function payitem(f) {
 	              	</a>
 	             	<div class="itemNm">${item.item_name}</div>
 	             	<div class="itemPrice">
-		                <span class="price">
+		                <span id="price" class="price">
 		                	<em>${item.item_price}</em>
 		                	<span>원</span>
 		                </span>
 	              	</div>
+
              		<div class="itemInfo">
                 	<p><span>교환처</span>${item.brand}</p>
               		</div>
             	</div>
+            	
 	            <div class="btnSet">
 	              <!-- 장바구니 -->
-	              <a href="">
-	                <div class="btnCart" id="userCart"><em></em></div>
+	              <a onclick="cart(${item.item_no})">
+	                <div id="userCart" class="btnCart"><em></em></div>
 	              </a>
 	              <!-- 찜 -->
-	              <a href="">
-	                <div class="btnLike" id="userLike"><em></em></div>
-	              </a>
+	              <c:choose>
+	              	<c:when test="${wish eq 'exists'}">
+	              		<a onclick="wish(${item.item_no})">
+	               			<div id="userLike" class="btnLike likePush"><em></em></div>
+	              		</a>
+	              	</c:when>
+	              	<c:when test="${wish eq 'no'}">
+	              		<a onclick="wish(${item.item_no})">
+	               			<div id="userLike" class="btnLike"><em></em></div>
+	              		</a>
+	              	</c:when>
+	              </c:choose>
+
 	              <!-- 구매하기 -->
 	              <a href="payitem?item_no=${item.item_no }">
 	                <div class="btnBuy">구매하기</div>
@@ -110,4 +191,18 @@ function payitem(f) {
     </footer>
   </form>  
 </body>
+<script type="text/javascript">
+
+// 가격 콤마
+function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+document.addEventListener("DOMContentLoaded", function() {	
+	let price = document.getElementById("price").getElementsByTagName("em")[0].innerText;
+	document.getElementById("price").getElementsByTagName("em")[0].innerText = numberWithCommas(price);
+});
+
+</script>
+
 </html>

@@ -11,7 +11,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ITEM_NO = #{item_no}
 	</select>
 	
+	 <!-- 조회수 증가 -->
+  <select id="readhit_update" parameterType="Integer">
+		UPDATE ITEM SET readhit = readhit + 1
+		WHERE item_no = #{item_no}
+	</select>
+	
 
+
+	
 </mapper>
 
 

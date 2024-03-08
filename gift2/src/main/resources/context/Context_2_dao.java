@@ -11,6 +11,7 @@ import dao.MainDAO;
 import dao.MemberDAO;
 import dao.PayingDAO;
 import dao.UserQnaDAO;
+import dao.WishCartDAO;
 import service.BuBoardService;
 import service.BuMemberService;
 
@@ -65,6 +66,11 @@ public class Context_2_dao {
 		@Bean
 		public UserQnaDAO userQnaDAO(SqlSession sqlSession) {
 			return new UserQnaDAO(sqlSession);
+		}
+		
+		@Bean
+		public WishCartDAO wishCartDAO(SqlSession sqlSession) {
+			return new WishCartDAO(sqlSession);
 		}
 
 }
