@@ -1,4 +1,4 @@
-package dao;
+    package dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,32 +12,32 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class UserQnaDAO {
-
 	
 	final SqlSession sqlSession;	
 	
-	// »ç¿ëÀÚ È¸¿øÀÇ ÀÌ¸§, ÀüÈ­¹øÈ£ Á¶È¸ Á¶È¸
-	// -> Å¸ÀÔÀÌ¸§ È®ÀÎ ÈÄ ¼öÁ¤ ÇÊ¿ä
-	public List<MemberDTO> memberSelect() {
-		List<MemberDTO> list = sqlSession.selectList("userQna.member_one");
-		return list;
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½, ï¿½ï¿½È­ï¿½ï¿½È£ ï¿½ï¿½È¸ ï¿½ï¿½È¸
+	public MemberDTO memberSelectOne(int m_idx) {
+		MemberDTO memberDTO = sqlSession.selectOne("userQna.member_one", m_idx);
+		return memberDTO;
 	}
 	
-	// »ç¿ëÀÚ qna(°Ô½Ã±Û) Ãß°¡
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ qna(ï¿½Ô½Ã±ï¿½) ï¿½ß°ï¿½
 	public int insert(UserQnaDTO dto) {
 		return sqlSession.insert("userQna.qna_insert", dto);
 	}
 	
-	// »ç¿ëÀÚ ÀüÃ¼ qna(°Ô½Ã±Û) Á¶È¸
-	public List<UserQnaDTO> selectList(){		
-		List<UserQnaDTO> list = sqlSession.selectList("userQna.qna_list");	
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ qna(ï¿½Ô½Ã±ï¿½) ï¿½ï¿½È¸
+	public List<UserQnaDTO> selectList(int m_idx){		
+		List<UserQnaDTO> list = sqlSession.selectList("userQna.qna_list", m_idx);	
 		return list;
 	}
 	
-	// ÀüÃ¼ °Ô½Ã¹° ¼ö Á¶È¸
+	// ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ ï¿½ï¿½È¸
 	public int getRowTotal() {
 		int count = sqlSession.selectOne("userQna.board_count");
 		return count;
 	}
 	
 }
+
+    

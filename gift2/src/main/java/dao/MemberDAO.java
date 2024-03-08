@@ -1,4 +1,4 @@
-package dao;
+    package dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,18 +20,18 @@ public class MemberDAO {
 	
 	public MemberDTO login(HashMap<String, String> map) {
 		
-		System.out.println("ì•„ì´ë””dao : " +map.get("id"));
-		System.out.println("ë¹„ë°€ë²ˆí˜¸dao : " +map.get("pwd"));
+		System.out.println("¾ÆÀÌµğdao : " +map.get("id"));
+		System.out.println("ºñ¹Ğ¹øÈ£dao : " +map.get("pwd"));
 		
 
 		MemberDTO dto = sqlSession.selectOne("m.memberlogin",map);
 		if(dto==null) {
-			System.out.println("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+			System.out.println("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
 		}else {
 			System.out.println(dto.getM_idx());
-			System.out.println(dto.getBu_name());
-			System.out.println("ì‹¤ì œ ì•„ì´ë”” : " + dto.getBu_id());
-			System.out.println("ì‹¤ì œ ë¹„ë°€ë²ˆí˜¸ : " + dto.getBu_pwd());
+			System.out.println(dto.getM_name());
+			System.out.println("½ÇÁ¦ ¾ÆÀÌµğ : " + dto.getM_id());
+			System.out.println("½ÇÁ¦ ºñ¹Ğ¹øÈ£ : " + dto.getM_pwd());
 			//return null;
 		}
 		
@@ -40,10 +40,30 @@ public class MemberDAO {
 	}
 
 
-	public void insert(MemberDTO memberDTO) {
-		System.out.println(memberDTO.getBu_id());
-		System.out.println(memberDTO.getBu_name());
+	public void insert(HashMap<String, String> m_join_insert) {
+		System.out.println("DAO ÀÚ¹Ù Ãâ·Â");
+		System.out.println(m_join_insert.get("id"));
+		System.out.println(m_join_insert.get("pwd"));
+		System.out.println(m_join_insert.get("name"));
+		System.out.println(m_join_insert.get("addr"));
+		System.out.println(m_join_insert.get("email"));
+		System.out.println(m_join_insert.get("phone"));
+		sqlSession.insert("m.memberjoin", m_join_insert);
+		System.out.println("insert¿Ï·á");
 		//sqlSession.insert("m.memberjoin", memberDTO);
+		
+	}
+
+
+	public String check_id(String id) {
+		// TODO Auto-generated method stub
+		System.out.println("daoÀÇ °ªµµ "+id);
+		String checked_id = sqlSession.selectOne("m.checkid", id);
+//		if(checked_id==null) {System.out.println("¾ÆÀÌµğ°¡ ¾ø½À´Ï´Ù.");}
+//		else {System.out.println("Áßº¹µÈ ¾ÆÀÌµğ "+checked_id+"°¡ ÀÖ½À´Ï´Ù.");}
+		
+		return checked_id;
+		
 		
 	}
 
@@ -51,3 +71,5 @@ public class MemberDAO {
 	
 	
 }
+
+    

@@ -1,4 +1,4 @@
-package com.korea.gift;
+    package com.korea.gift;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -50,7 +50,7 @@ public class BuMemberController {
 		return null;
 	}
 
-	@RequestMapping(value = { "/", "/buLoginForm" })
+	@RequestMapping("buLoginForm")
 	public String buLoginForm() {
 		System.out.println("/buLoginForm");
 
@@ -67,9 +67,9 @@ public class BuMemberController {
 		
 		BusinessDTO login = service.buLogin(dto);
 
-		// ÇØ´çÇÏ´Â È¸¿øÀÌ ÀÖ´ÂÁö °ËÁõ
+		// ï¿½Ø´ï¿½ï¿½Ï´ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if (login == null) {
-			// È¸¿ø ÀÖÀ¸¸é ¼¼¼Ç¿¡ ´ã¾ÆÁÖ°í ¾øÀ¸¸é model·Î ¿¡·¯ ¸Þ¼¼Áö
+			// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ modelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 			session.setAttribute("buLogin", null);
 			rttr.addFlashAttribute("msg", false);
 
@@ -80,11 +80,11 @@ public class BuMemberController {
 			System.out.println("login success");
 		}
 
-		// jsp¿¡¼­ c:if¸¦ ÅëÇØ page º¯È­ ÁÖ¾î¾ßÇÔ
+		// jspï¿½ï¿½ï¿½ï¿½ c:ifï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ page ï¿½ï¿½È­ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½
 		return "redirect:/";
 	}
 	
-	//·Î±×¾Æ¿ô
+	//ï¿½Î±×¾Æ¿ï¿½
 	@RequestMapping("/buLogout")
 	public String buLogout(HttpSession session) {
 		session.invalidate();
@@ -92,7 +92,7 @@ public class BuMemberController {
 		return "redirect:/";
 	}
 	
-	//id°ËÁõ
+	//idï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/buIdCheck")
 	public String buIdCheck(BusinessDTO dto, RedirectAttributes rttr) {
 		String bu_id = dto.getBu_id();
@@ -111,3 +111,5 @@ public class BuMemberController {
 	}
 
 }
+
+    

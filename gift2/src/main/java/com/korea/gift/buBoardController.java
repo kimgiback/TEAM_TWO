@@ -1,4 +1,4 @@
-package com.korea.gift;
+    package com.korea.gift;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class buBoardController {
 	@Autowired
 	HttpSession session;
 
-	@RequestMapping(value = { "/", "/buQnaList" })
+	@RequestMapping("buQnaList")
 	public String qnaList(Model model) {
 		System.out.println("qnaList");
 
@@ -42,7 +42,7 @@ public class buBoardController {
 		return BU_BOARD_VIEW_PATH + "/buQnaList.jsp";
 	}
 
-	@RequestMapping("/buQnaDetail")
+	@RequestMapping("buQnaDetail")
 	public String qnaDetail(@RequestParam("qna_no") int qna_no, Model model, HttpSession session) {
 		System.out.println("qnaDetail");
 
@@ -61,7 +61,7 @@ public class buBoardController {
 
 		model.addAttribute("qna", boardService.qnaOne(qna_no));
 		model.addAttribute("replyList", replies);
-		model.addAttribute("writers", writers); // bu_no, bu_writer »ç¿ëÇÒ¼ö ¤· ³Ñ°ÜÁÖ±â
+		model.addAttribute("writers", writers); // bu_no, bu_writer ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ö±ï¿½
 
 		return BU_BOARD_VIEW_PATH + "/buQnaDetail.jsp";
 	}
@@ -82,7 +82,7 @@ public class buBoardController {
 		
 		System.out.println("replyWrite");
 
-		// fk bu_no ¼³Á¤ÇÏ±â
+		// fk bu_no ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		BusinessDTO writer = (BusinessDTO) session.getAttribute("buLogin");
 		int bu_no = writer.getBu_no();
 		replyDTO.setBu_no(bu_no);
@@ -103,7 +103,7 @@ public class buBoardController {
 
 		ReplyDTO reply = boardService.replyOne(re_no);
 
-		// ÀÛ¼ºÀÚ ÀÏÄ¡ÇÏ´ÂÁö °ËÁõ
+		// ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		int now_no = ((BusinessDTO) session.getAttribute("buLogin")).getBu_no();
 		int bu_no = reply.getBu_no();
 
@@ -138,7 +138,7 @@ public class buBoardController {
 
 		ReplyDTO reply = boardService.replyOne(re_no);
 
-		// ÀÛ¼ºÀÚ ÀÏÄ¡ÇÏ´ÂÁö °ËÁõ
+		// ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		int now_no = ((BusinessDTO) session.getAttribute("buLogin")).getBu_no();
 		int bu_no = reply.getBu_no();
 
@@ -152,3 +152,5 @@ public class buBoardController {
 	}
 
 }
+
+    

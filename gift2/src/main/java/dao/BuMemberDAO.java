@@ -1,4 +1,4 @@
-package dao;
+    package dao;
 
 import java.util.HashMap;
 
@@ -12,7 +12,7 @@ public class BuMemberDAO {
 
 	private final SqlSession sql;
 
-	// °á°ú°¡ ¼º°øÇÏ¸é int°ª ¹ÝÈ¯
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ intï¿½ï¿½ ï¿½ï¿½È¯
 	public int buRegister(BusinessDTO buDTO) throws Exception {
 		return sql.insert("buMember.buRegister", buDTO);
 	}
@@ -34,3 +34,5 @@ public class BuMemberDAO {
 	}
 
 }
+
+    

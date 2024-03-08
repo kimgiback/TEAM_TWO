@@ -1,4 +1,4 @@
-package service;
+    package service;
 
 import java.util.List;
 
@@ -43,3 +43,5 @@ public class BuBoardService {
 
 
 }
+
+    
