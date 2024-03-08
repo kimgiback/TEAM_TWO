@@ -1,4 +1,4 @@
-package com.korea.gift;
+    package com.korea.gift;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +25,6 @@ import util.Page;
 public class UserQnaController {
 	
 	final UserQnaDAO userQnaDAO;	
-//	final MemberDAO memberDAO;
 	
 	@Autowired
 	HttpServletRequest request;	
@@ -33,92 +32,92 @@ public class UserQnaController {
 	@Autowired
 	HttpSession session;
 	
-	// »ç¿ëÀÚ qna(°Ô½Ã±Û) ±Û¾²±â È­¸éÀ¸·Î ÀÌµ¿
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ qna(ï¿½Ô½Ã±ï¿½) ï¿½Û¾ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	@RequestMapping("userQna_form")
 	public String insert_form(Model model) {
 
-		MemberDTO show = (MemberDTO)session.getAttribute("m_idx");
+		MemberDTO show = (MemberDTO)session.getAttribute("m_idx");		
 		
-		model.addAttribute("show",show);
-
-		// ·Î±×ÀÎ ÆäÀÌÁö ÀÛ¼º ¿Ï·á ÈÄ Å×½ºÆ® ÇÊ¿ä
-//		if(show == null) {
-//			return Common.Member.VIEW_PATH + "login.jsp";
-//		}
+		if(show == null) {
+			boolean noLogin = true;
+			model.addAttribute("noLogin", noLogin);
+		}
 		
-		
-//		int m_idx = show.getM_idx();	
-//		dto.setM_idx(m_idx);
-//		
-//		// Å¸ÀÔ ÀÌ¸§ È®ÀÎ ÈÄ ¼öÁ¤ ÇÊ¿ä
-//		MemberDTO memberDTO = UserQnaDAO.selectOne(m_idx);	
-//		
-//		model.addAttribute("memberDTO", memberDTO);
-		
-		List<MemberDTO> memberList = userQnaDAO.memberSelect();				
+		if(show != null) {
+			int m_idx = show.getM_idx();
+			MemberDTO memberDTO = userQnaDAO.memberSelectOne(m_idx);		
+			model.addAttribute("memberDTO", memberDTO);
+		}
 		
 		return Common.Board.VIEW_PATH + "userQna_form.jsp";
 	}
 	
-	// »ç¿ëÀÚ qna(°Ô½Ã±Û) Ãß°¡
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ qna(ï¿½Ô½Ã±ï¿½) ï¿½ß°ï¿½
 	@RequestMapping("userQna_insert")
-	public String insert(UserQnaDTO dto) {
+	public String insert(UserQnaDTO userQnaDTO) {
 		
-		MemberDTO show = (MemberDTO)session.getAttribute("m_idx");
+		MemberDTO show = (MemberDTO)session.getAttribute("m_idx");	
 		
-		// ·Î±×ÀÎ ÆäÀÌÁö ÀÛ¼º ¿Ï·á ÈÄ Å×½ºÆ® ÇÊ¿ä
 		if(show == null) {
 			return Common.Member.VIEW_PATH + "login.jsp";
 		}
-		
-		int m_idx = show.getM_idx();
-		dto.setM_idx(m_idx);
 
-		int res = userQnaDAO.insert(dto);
+		int m_idx = show.getM_idx();
+		userQnaDTO.setM_idx(m_idx);	
+
+		int res = userQnaDAO.insert(userQnaDTO);
 
 		if(res > 0) {
-			//µî·Ï¿Ï·áÈÄ °Ô½ÃÆÇÀÇ Ã¹ ÆäÀÌÁö·Î º¹±Í
+			//ï¿½ï¿½Ï¿Ï·ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			return "redirect:userQna_list";
 		}
 		return null;
 	}	
 	
-	// »ç¿ëÀÚ qna(°Ô½Ã±Û) Á¶È¸ È­¸éÀ¸·Î ÀÌµ¿
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ qna(ï¿½Ô½Ã±ï¿½) ï¿½ï¿½È¸ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	@RequestMapping("userQna_list")
 	public String list(Model model, @RequestParam(required= false, defaultValue="1") int page) {		
 		
-		//ÇÑ ÆäÀÌÁö¿¡ Ç¥½ÃµÉ °Ô½Ã¹°ÀÇ ½ÃÀÛ°ú ³¡¹øÈ£ °è»ê
-		//page°¡ 1ÀÌ¸é 1~10±îÁö °è»êµÇ¾ßÇÔ
-		//page°¡ 2ÀÌ¸é 11~20±îÁö °è»êµÇ¾ßÇÔ
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½Ãµï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½ï¿½ï¿½È£ ï¿½ï¿½ï¿½
+		//pageï¿½ï¿½ 1ï¿½Ì¸ï¿½ 1~10ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½
+		//pageï¿½ï¿½ 2ï¿½Ì¸ï¿½ 11~20ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½
 		int start = (page - 1) * Common.Board.BLOCKLIST + 1;
 		int end = start + Common.Board.BLOCKLIST - 1;		
 		
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("start",start);
-		map.put("end",end);
-		
+		map.put("end",end);		
 		//List<UserQnaDTO> list = userQnaDAO.selectList(map);
 		
-		//ÀüÃ¼ °Ô½Ã¹° ¼ö Á¶È¸
+		//ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ ï¿½ï¿½È¸
 		int rowTotal = userQnaDAO.getRowTotal();
 		
-		//ÆäÀÌÁö ¸Þ´º »ý¼ºÇÏ±â
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		String pageMenu = Page.getPaging(
 				"board_list",
-				page, //ÇöÀç ÆäÀÌÁö ¹øÈ£
-				rowTotal, //ÀüÃ¼ °Ô½Ã¹° ¼ö
-				Common.Board.BLOCKLIST, //ÇÑ ÆäÀÌÁö¿¡ Ç¥±âÇÒ °Ô½Ã¹° ¼ö
-				Common.Board.BLOCKPAGE); //ÆäÀÌÁö ¸Þ´º ¼ö
+				page, //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+				rowTotal, //ï¿½ï¿½Ã¼ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½
+				Common.Board.BLOCKLIST, //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½
+				Common.Board.BLOCKPAGE); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½
 		
-		MemberDTO show = (MemberDTO)session.getAttribute("m_idx");		
-		
-		List<UserQnaDTO> list = userQnaDAO.selectList();
-		
-		model.addAttribute("list",list);
 		model.addAttribute("pageMenu",pageMenu);
 		
-		return Common.Board.VIEW_PATH + "userQna_list.jsp?page="+page;
-	}
-	
+		MemberDTO show = (MemberDTO)session.getAttribute("m_idx");	
+		
+		
+		if(show != null) {
+			
+			int m_idx = show.getM_idx();
+			List<UserQnaDTO> list = userQnaDAO.selectList(m_idx);
+			MemberDTO memberDTO = userQnaDAO.memberSelectOne(m_idx);		
+			
+			model.addAttribute("list",list);
+			model.addAttribute("memberDTO", memberDTO);
+		}				
+		
+		return Common.Board.VIEW_PATH + "userQna_list.jsp?";
+	}	
 
 }
+
+    

@@ -12,6 +12,7 @@ import dao.MemberDAO;
 import dao.PayingDAO;
 import dao.UserQnaDAO;
 import dao.WishCartDAO;
+import dao.buItemDAO;
 import service.BuBoardService;
 import service.BuMemberService;
 
@@ -72,5 +73,11 @@ public class Context_2_dao {
 		public WishCartDAO wishCartDAO(SqlSession sqlSession) {
 			return new WishCartDAO(sqlSession);
 		}
+		
+		@Bean
+		public buItemDAO buItemDAO(SqlSession sqlSession) {
+			return new buItemDAO(sqlSession);
+		}
+		
 
 }

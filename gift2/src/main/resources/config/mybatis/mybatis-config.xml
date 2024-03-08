@@ -23,6 +23,7 @@
     <typeAlias type="dto.WishDTO" alias="WishDTO" />
     <typeAlias type="dto.CartItemDTO" alias="CartItemDTO" />
     <typeAlias type="dto.WishItemDTO" alias="WishItemDTO" />
+    <typeAlias type="dto.ItemImagefileDTO" alias="ItemImagefileDTO" />
 	</typeAliases>
 	
 <mappers>

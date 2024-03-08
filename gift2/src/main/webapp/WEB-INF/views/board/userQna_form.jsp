@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -6,12 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/board/userQna_form.css">
-<script type="text/javascript">
-	
-
-	
-</script>
+<link rel="stylesheet" href="resources/css/board/userQna_form.css?after">
+<script src="resources/js/board/userQna_form.js"></script>
 </head>
 <body>
 <%@ include file="../commons/header.jsp"%> 
@@ -32,8 +28,8 @@
 
                 <!-- inquiry-form -->
                 <div class="inquiryBox">
-                    <h2><a>＞</a>문의하기</h2>
-                    <form action="insert" method="post" name="f">
+                    <h2><a>＞</a>1:1 문의</h2>
+                    <form action="userQna_insert" method="post" name="f">
                         <table class="inquiry">                            
                             <colgroup>
                                 <col>
@@ -43,40 +39,40 @@
                                 <tr>
                                     <th>질문 유형 선택</th>
                                     <td>
-                                        <select name="inquiry_type" id="typeChoice" class="selType01 type170">
-                                            <option value="" selected="selected">선택</option>                                  
-                                            <option value="10">사용하기</option>                                                                                       
-                                            <option value="11">결제</option>                                                            
-                                            <option value="13">발송문의</option>                                
-                                            <option value="9">선물보내기</option>                                                
+                                        <select name="typeChoice" id="typeChoice" class="selType01 type170">
+                                            <option value="기타">기타</option>                                                                                       
+                                            <option value="사용하기">사용하기</option>                                                            
+                                            <option value="결제">결제</option>                                
+                                            <option value="발송문의">발송문의</option>                                                
+                                            <option value="선물보내기">선물보내기</option>                                                 
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>작성자 이름</th>
                                     <td>
-                                    	<c:forEach var="dto" items="${memberList}">   
-	                                    	<div class="writer">
-	                                    		<%-- <input type="hidden" name="writer" value="${dto.m_name}">  --%>
+	                                    <div class="writerBox">
+                                    		<c:forEach var="dto" items="${memberDTO}">   
+	                                    		<input type="hidden" name="writer" id="writer" value="${dto.m_name}">
 												${dto.m_name}
-	                                        </div> 
-	                                    </c:forEach>                                                                    
+	                                    	</c:forEach>                                                                    
+	                                    </div> 
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>휴대폰 번호</th>
                                     <td>
-                                    	<c:forEach var="dto" items="${memberList}">
-	                                    	<div class="phoneNo">
-	                                    		<%-- <input type="hidden" name="phoneNo" value="${dto.m_phone}">  --%>
+	                                    <div class="phoneNoBox">
+                                    		<c:forEach var="dto" items="${memberDTO}">
+	                                    		<input type="hidden" name="phoneNo" id="phoneNo" value="${dto.m_phone}">
 												${dto.m_phone}
-	                                        </div>   
-	                                    </c:forEach>                       
+	                                    	</c:forEach>                       
+	                                    </div>   
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>제목</th>
-                                    <td><input type="text" class="w810" value="" id="title" name="title" size="50" placeholder="제목을 입력하세요(50자 내외)"></td>
+                                    <td><input type="text" class="w810" value="" id="title" name="title" size="30" placeholder="제목을 입력하세요(30자 내외)"></td>
                                 </tr>
                                 <tr class="inquiry_contents">
                                     <th>내용</th>
@@ -123,7 +119,7 @@
                         <div>
                             <ul>
                                 <li>
-                                    <p class="agreeCheckInfo"><input type="checkbox" name="agreeCheck" id="agreeCheck" onchange="agreeCheck(this);"><a>개인정보 수집 및 이용에 동의합니다.</a></p>
+                                    <p class="agreeCheckInfo"><input type="checkbox" name="agreeCheck" id="agreeCheck" value="Y"><a>개인정보 수집 및 이용에 동의합니다.</a></p>
                                 </li>
                                 <li>
                                     <p class="agreeCheckInfo"><a>gift에서 위와 같이 개인정보를 수집, 이용하는 것에 대해 거부하실 수 있으며, 거부 시 1:1 문의가 불가합니다</a></p>
@@ -135,13 +131,13 @@
 
                 <!-- submit or cancel  -->
                 <div class="btnBox">                        
-                    <button type="button" class="registry sign" onclick="send_check();">등록</button>
-                    <button type="button" class="registry cancel" onclick="send_cancel();">취소</button>                        
+                    <button type="button" class="registry sign" onclick="send_check(${noLogin});">등록</button>
+                    <button type="button" class="registry cancel" onclick="location.reload();">취소</button>                        
                 </div>
             </div>           
         </section>
     </main>
 <%@ include file="../commons/footer.jsp"%>
-
 </body>
 </html>
+    

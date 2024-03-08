@@ -1,5 +1,7 @@
 package dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -28,5 +30,7 @@ public class ItemDTO {
 	//image file
 //	private MultipartFile item_image;
 	private String item_image;
+	
+	private MultipartFile item_images;
 	
 }

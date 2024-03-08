@@ -74,7 +74,7 @@
         			<a href="bu/board/buQnaList">고객센터</a>
         		</p>
         		        		<p>
-        			<a href="bu/item/buItemList">등록상품 목록</a>
+        			<a href="/buItem/insertForm">상품등록</a>
         		</p>
         	</div>
         </c:if>
