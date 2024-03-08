@@ -103,9 +103,11 @@ public class UserQnaController {
 		model.addAttribute("pageMenu",pageMenu);
 		
 		MemberDTO show = (MemberDTO)session.getAttribute("m_idx");	
-		int m_idx = show.getM_idx();
+		
 		
 		if(show != null) {
+			
+			int m_idx = show.getM_idx();
 			List<UserQnaDTO> list = userQnaDAO.selectList(m_idx);
 			MemberDTO memberDTO = userQnaDAO.memberSelectOne(m_idx);		
 			
