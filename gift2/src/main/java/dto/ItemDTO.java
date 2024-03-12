@@ -27,10 +27,8 @@ public class ItemDTO {
 	
 	private int readhit;
 	
-	//image file
-//	private MultipartFile item_image;
-	private String item_image;
+	private String img_name; // ITEM_ImageFile 테이블과 join해서 img_name 컬럼 가져옴
 	
-	private MultipartFile item_images;
+	private MultipartFile item_image;
 	
 }
